@@ -1,0 +1,6 @@
+- name: Install Caddy,
+  hosts: all
+  remote_user: root
+
+  roles:
+    - caddy
