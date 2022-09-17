@@ -4,19 +4,30 @@
 
 - name: Install dependencies
   ansible.builtin.apt:
-    name: curl debian-keyring debian-archive-keyring apt-transport-https
-    state: build-dep
+    pkg: 
+    - curl
+    - debian-keyring
+    - debian-archive-keyring
+    - apt-transport-https
+
+- name: check if caddy-stable.list is in sources.list.d
+  stat:
+    path: /etc/apt/sources.list.d/caddy-stable.list
+  register: stat_result
 
 - name: Add caddy gpg.key
-  ansible.builtin.command: curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+  ansible.builtin.command: curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+  when: not stat_result.stat.exists
 
 - name: Add caddy release to apt sources
-  ansible.builtin.command: curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+  ansible.builtin.command: curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
+  when: not stat_result.stat.exists
 
 - name: Update apt cache
   ansible.builtin.apt:
     update_cache: yes
 
 - name: Install caddy
+  ansible.builtin.apt:
     name: caddy
     state: present
