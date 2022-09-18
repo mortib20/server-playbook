@@ -48,6 +48,18 @@
   ansible.builtin.apt:
     name: caddy
     state: present
+  
+- name: Check if Caddyfile is installed
+  stat:
+    path: /etc/caddy/Caddyfile
+  register: caddy_file_inst
+
+- name: Copy Caddyfile to /etc/caddy
+  template:
+    src: Caddyfile
+    dest: /tmp/Caddyfile
+# when: no caddy_file_inst.stat.exists
+
 
 - name: Start Caddy
   service:
