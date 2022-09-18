@@ -1,6 +1,7 @@
-- name: Install Caddy,
-  hosts: all
+- name: Install Server
+  hosts: localhost
   remote_user: root
 
   roles:
     - caddy
+    - mariadb
