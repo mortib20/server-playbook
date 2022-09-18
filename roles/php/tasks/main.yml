@@ -1,0 +1,11 @@
+- name: Install PHP packages
+  ansible.builtin.apt:
+    pkg:
+      - php7.4
+      - php7.4-fpm
+
+- name: Start PHP-FPM
+  service:
+    name: php7.4-fpm
+    state: started
+    enabled: yes
