@@ -1,0 +1,11 @@
+- name: Install MariaDB packages
+  ansible.builtin.apt:
+    pkg:
+    - mariadb-server
+    - mariadb-client
+
+- name: Start MariaDB service
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
