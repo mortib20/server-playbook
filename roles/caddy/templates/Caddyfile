@@ -2,3 +2,13 @@
 	email {{ email }}
 	admin off
 }
+
+:2019
+{
+	metrics
+}
+
+:80
+{
+	response "The Server is working."
+}

@@ -58,10 +58,10 @@
   template:
     src: Caddyfile
     dest: /tmp/Caddyfile
-# when: no caddy_file_inst.stat.exists
+  when: no caddy_file_inst.stat.exists
 
 
-- name: Start Caddy
+- name: Start and enable Caddy
   service:
     name: caddy
     state: started
