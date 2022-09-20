@@ -58,7 +58,7 @@
   template:
     src: Caddyfile
     dest: /tmp/Caddyfile
-  when: no caddy_file_inst.stat.exists
+  when: not caddy_file_inst.stat.exists
 
 
 - name: Start and enable Caddy

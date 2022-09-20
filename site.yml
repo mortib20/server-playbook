@@ -6,3 +6,4 @@
     - caddy
     - php
     - mariadb
+    - docker

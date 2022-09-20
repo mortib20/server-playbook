@@ -1,0 +1,11 @@
+- name: Install Docker
+  ansible.builtin.apt:
+    pkg:
+    - docker-ce
+    state: present
+
+- name: Start Docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
